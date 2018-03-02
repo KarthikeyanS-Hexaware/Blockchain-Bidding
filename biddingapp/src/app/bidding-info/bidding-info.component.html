@@ -1,0 +1,115 @@
+<app-header></app-header>
+
+<div class="clear"></div>
+    <div _ngcontent-c0="" class="fullList">
+            <div _ngcontent-c0="" class="commit-tease">
+                    <span style="color:#fff; font-weight:bold">Bidding Submission</span>
+                    <span _ngcontent-c0="" class="pull-right">
+               <!--        <input _ngcontent-c0="" class="btn-primary" data-target="#mdlCreateCase" data-toggle="modal" type="button" value="Create"> -->
+                    </span>
+                    <div _ngcontent-c0="" class="commit-tease-contributors">
+
+
+<div class ="container bidd">
+    <div class="row">
+         <div class="col-md-2">
+            <label class="control-label" for="txtname">Event ID </label> 
+        </div>
+        <div class="col-md-2">
+            <input class="form-control ng-untouched ng-pristine ng-valid" id="txtname" name="txtname" type="text" ng-reflect-name="txtname">
+        </div>
+        <div class="col-md-2">
+            <label class="control-label" for="txtname">Item</label> 
+        </div>
+        <div class="col-md-2">  
+            <input class="form-control ng-untouched ng-pristine ng-valid" id="txtname" name="txtname" type="text" ng-reflect-name="txtname">
+        </div>
+        <div class="col-md-2">
+                <label class="control-label" for="txtname">Customer Name </label> 
+            </div>
+            <div class="col-md-2">
+                <input class="form-control ng-untouched ng-pristine ng-valid" id="txtname" name="txtname" type="text" ng-reflect-name="txtname">
+            </div>
+    </div>
+    <div class="row">
+            
+           <div class="col-md-2">
+               <label class="control-label" for="txtname">Quantity </label> 
+           </div>
+           <div class="col-md-2">  
+               <input class="form-control ng-untouched ng-pristine ng-valid" id="txtname" name="txtname" type="text" ng-reflect-name="txtname">
+           </div>
+           <div class="col-md-2">
+                <label class="control-label" for="txtname">Po Number </label> 
+            </div>
+            <div class="col-md-2">
+                <input class="form-control ng-untouched ng-pristine ng-valid" id="txtname" name="txtname" type="text" ng-reflect-name="txtname">
+            </div>
+            <div class="col-md-2">
+                <label class="control-label" for="txtname">Amount</label> 
+            </div>
+            <div class="col-md-2">  
+                <input class="form-control ng-untouched ng-pristine ng-valid" id="txtname" name="txtname" type="text" ng-reflect-name="txtname">
+            </div>
+       </div>
+       <div class="row">
+            <div class="col-md-2">
+               <label class="control-label" for="txtname">Rate of Int </label> 
+           </div>
+           <div class="col-md-2">
+               <input class="form-control ng-untouched ng-pristine ng-valid" id="txtname" name="txtname" type="text" ng-reflect-name="txtname">
+           </div>
+           <div class="col-md-2">
+               <label class="control-label" for="txtname">Attachment</label> 
+           </div>
+           <div class="col-md-2"> 
+                <input id="" name="" multiple="" type="file" />        
+    
+           </div>
+           
+       </div>
+       <div class="col-md-8"class="btnalign">
+    <input _ngcontent-c0="" class="btn btn-primary btn-lg" type="button" value="Submit" ng-click="search($event)">
+  </div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="fullList">
+
+        <table class ="table table-striped">
+                <thead>
+                <tr>
+                    <th>Event_ID </th>
+                    <th>Customer_name</th>
+                    <th>PO_Number</th>
+                    <th>item_Code</th>
+                    <th>Quantity </th>
+                    <th>Amount</th>
+                    <th>Financial_Inst</th>
+                    <th>Rate-of_Int</th>
+                    <th>Attachments</th>
+
+                  
+
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let Bid of Custom">
+                        <td>{{Bid.Event_ID}}</td>
+                        <td>{{Bid.Customer_Name}}</td>
+                        <td>{{Bid.Po_Number}}</td>
+                        <td>{{Bid.Item_Code}}</td>
+                        <td>{{Bid.Quantity}}</td>
+                        <td>{{Bid.Amount}}</td>
+                        <td>{{Bid.Financial_Inst}}</td>
+                        <td>{{Bid.Rate_of_Int}}</td>
+                        <td>{{Bid.Attachments}}</td>
+                    </tr>
+                </tbody>
+               </table>
+            </div>
+
+<app-footer></app-footer>

@@ -1,0 +1,43 @@
+<h4 align="center" class="mt15">Buyer orders</h4>
+<table class="table table-striped mt15" style="border:1px solid #ddd">
+	<thead>
+		<th>P.O number</th>
+		<th>P.O Date</th>
+		<th>Supplier Name</th>
+		<th>Supplier country</th>
+		<th>Sup. P.O Accept.Req.</th>
+		<th>Match app. level</th>
+		<th>Currency</th>
+		<th>P.O TotalAmount</th>
+		<th>Payment terms</th>
+		<th>Freight </th>
+		<th>Item code</th>
+		<th>Item description</th>
+		<th>Item Quantity</th>
+		<th>Unit price</th>
+		<th>Line item Total</th>
+		<th>Creation Date </th>
+	</thead>
+	<tbody>
+		{{#each lcApplications}}
+			<tr>
+				<td>{{PONumber}}</td>
+				<td>{{PODate}}</td>
+				<td>{{SupplierName}}</td>
+				<td>{{SupplierCountry}}</td>
+				<td>{{SupplierPOAcceptanceRequired}}</td>
+				<td>{{MatchApprovalLevel}}</td>
+				<td>{{Currency}}</td>
+				<td>{{POTotalAmount}}</td>
+				<td>{{PaymentTerms}}</td>
+				<td>{{Freight}}</td>
+				<td>{{ItemCode}}</td>
+				<td>{{ItemDescription}}</td>
+				<td>{{ItemQuantity}}</td>
+				<td>{{UnitPrice}}</td>
+				<td>{{LineItemTotal}}</td>
+				<td>{{OrderCreationDate}}</td>
+			</tr>
+		{{/each}}
+	</tbody>
+</table>

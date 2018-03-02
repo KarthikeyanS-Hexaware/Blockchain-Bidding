@@ -1,0 +1,15 @@
+html{
+    overflow-y:scroll;
+}
+
+#loginPage .headerRt a{
+    display:none;
+}
+
+.headerRt a{
+    color:#fff;
+    text-decoration: none;
+    margin-left: 81%;
+    display:block;
+}
+

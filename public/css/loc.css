@@ -1,0 +1,92 @@
+@charset "utf-8";
+/* CSS Document */
+#exporter-info {
+	width : 650px;
+	display: inline-block;
+	height: 750px;
+}
+#documents-info {
+	width:650px;
+  	margin-left:10px;
+  	float:right;
+	display: inline-block;
+}
+section {
+    border:1px solid #ddd;
+    height:525px;
+}
+.center_div{
+    margin: 0 auto;
+    width:80% /* value of your choice which suits your alignment */
+}
+input.form-control {
+	height : 28px;
+	font-size : 13px;
+}
+
+textarea.form-control {
+	height : 35px;
+	font-size : 13px;
+}
+
+.form-group {
+	margin-bottom : 10px;
+}
+
+.btn {
+	padding : 5px 10px;
+}
+
+body {
+	width : 100%;
+	margin: 0px;
+}
+
+a, a:hover{
+	color : #fff;
+}
+
+.fa-check {
+	color: green;
+}
+
+.fa-close {
+	color: red;
+}
+
+.center {
+	padding : 10px;
+	text-align: center;
+    vertical-align: middle;
+}
+
+ul.nav li {
+	display : inline-block;
+}
+
+ul.nav li a {
+	background : transparent;
+	text-decoration : none;
+	color: #00496b;
+	padding : 5px 15px;
+}
+
+ul.nav li a span {
+	font: bold 13px "Open Sans", sans-serif;
+}
+
+ul.nav li a:hover {
+	background : transparent;
+}
+
+.mp20 {
+	margin-left : 20px;
+}
+
+.mt15 {
+	margin-top : 15px;
+}
+
+.fa-list-alt {
+	color : black;
+}

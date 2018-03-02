@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/css/loc.css"/>
+<link rel="stylesheet" href="/css/font-awesome.min.css"/>
+<title>Login</title>
+</head>
+<body>
+  <div class="container-fluid">
+	<div style="background-color: #0d8ac0;" class="col-md-12">
+		<div class="col-md-12">
+			<h4 style="color: #fff"></h4>
+		</div>
+		<div class="col-md-12">
+			<span style="color: #fff; padding-left:0px" class="col-md-11">{{date}}</span>
+			<span style="color: #fff" class="col-md-1">
+        <img src="/imgs/logo.jpg">
+			</span>
+		</div>
+	</div>
+	<div style="background-color: #66C6ED; text-aligin:center" class="col-md-12">
+    <span style="color: #fff; padding-left:0px" class="col-md-10"></span>
+    <span style="color: #fff" class="col-md-2">
+      Hexaware technologies ltd.
+    </span>
+	</div>
+  <div class="container">
+        <h3 align="center">Login Portal</h3>
+        <div style="margin-top: 150px" class="center_div">
+        <form class="form-signin" action="/processLogin" method="POST">
+          <div class="col-md-4 col-md-offset-4" >
+            <input type="text" name="username" class="form-control" placeholder="Login Id" required autofocus>
+          </div>
+          <div class="col-md-4 col-md-offset-4">
+            <input type="password" name="password" class="form-control" placeholder="Password" required>
+          </div>
+          <div class="col-md-4 col-md-offset-4">
+            <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+          </div>
+        </form>
+      </div>
+      </div>
+      </div>
+</body>
+</html>

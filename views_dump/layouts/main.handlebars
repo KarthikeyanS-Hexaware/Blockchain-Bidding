@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/css/loc.css"/>
+<link rel="stylesheet" href="/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="/css/colorbox.css">
+<link rel="stylesheet" href="css/jquery.fileupload.css">
+<link rel="stylesheet" href="css/jquery.fileupload-ui.css">
+<link rel="stylesheet" href="/css/main.css"/>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/vendor/jquery.ui.widget.js"></script>
+<script src="/js/vendor/jquery.iframe-transport.js"></script>
+<script src="/js/vendor/jquery.fileupload.js"></script>
+<script src="/js/vendor/jquery.colorbox.js"></script>
+<script src="/js/funk.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="/js/blockchain.js"></script>
+<script>
+	var connected = false;
+	var ws = {};
+	connect();
+
+	function connect() {
+	    var wsUri = '';
+	    console.log('protocol', window.location.protocol);
+	    if (window.location.protocol === 'https:') {
+	        wsUri = "wss://172.25.164.231:3001";
+	    }
+	    else {
+	        wsUri = "ws://172.25.164.231:3001";
+	    }
+	    ws = new WebSocket(wsUri);
+	    ws.onopen = function (evt) {
+	        onOpen(evt);
+	    };
+	    ws.onclose = function (evt) {
+
+	    };
+	    ws.onmessage = function (evt) {
+	        onMessage(evt);
+	    };
+	    ws.onerror = function (evt) {
+	        onError(evt);
+	    };
+	}
+
+	window.onbeforeunload = function() {
+		ws.onclose = function () {}; // disable onclose handler first
+		var obj = {type : 'stop_check_for_updates'};
+	    ws.send(JSON.stringify(obj));
+	    console.log("WS DISCONNECTED", evt);
+	    connected = false;
+		ws.close()
+	};
+
+	function onOpen(evt) {
+	    console.log("WS CONNECTED");
+	    connected = true;
+	    var obj = {type : 'check_for_updates'};
+	    ws.send(JSON.stringify(obj));
+	}
+
+
+	function onMessage(msg) {
+		try {
+			var data = JSON.parse(msg.data);
+			console.log('rec', data);
+			if (data.msg === 'on') {
+			}
+			else if (data.type === 'error') {
+				console.log("Error:", data.error);
+			} else if(data.type == 'createLC') {
+                console.log("createLC $$:", msg);
+                $('#dialog').html('<p>Purchase Order successfully created!</p><p> Transaction id : ' + data.txId + ' </p>');
+                $('#dialog').dialog('open');
+			} else if (data.type == 'updateStatus') {
+				if (data.state == 'PaymentComplete') {
+					$('#dialog').html('<p>Payment complete!</p><p> Transaction id : ' + data.txId + ' </p>');
+	                $('#dialog').dialog('open');
+				} else {
+					$('#dialog').html('<p>Purchase Order status updated!</p><p> Transaction id : ' + data.txId + ' </p>');
+	                $('#dialog').dialog('open');
+				}
+                changeProcessFlowState(data.statusFlag);
+			} else if (data.type === 'block') {
+				var msgObj = data.msg;
+				var height = msgObj.block_height;
+				console.log(' rec', msgObj, ': ledger blockheight', height);
+				if (msgObj.block_delay) block_ui_delay = msgObj.block_delay * 2;				// should be longer than block delay
+				if (data.first_broadcast == true) {
+					createBlocks(height);
+				} else {
+					new_block(height);													// send to blockchain.js
+				}
+			} else if (data.type === 'known_height') {
+				var height = data.result;
+				createBlocks(height);
+			}
+		}
+		catch (e) {
+			console.log('ERROR', e);
+			//ws.close();
+		}
+	}
+
+	function createBlocks(height) {
+		var startCount = (height > 15) ? (height - 14) : 1;
+		for (var start = startCount; start <= height; start++) {
+			build_block(start);
+		}
+		block_height = height;
+	}
+
+	function onError(evt) {
+	    console.log('ERROR ', evt);
+	}
+
+	function sendMessage(message) {
+	    console.log("SENT: " + message);
+	    ws.send(message);
+	}
+
+	function escapeHtml(str) {
+	    var div = document.createElement('div');
+	    div.appendChild(document.createTextNode(str));
+	    return div.innerHTML;
+	}
+
+	$(document).ready(function() {
+		$("#dialog").dialog({
+	        resizable: false,
+	        autoOpen: false,
+	        height:200,
+	        width:490,
+	        modal: true,
+	        buttons: {
+	          'Ok': function() {
+	            $(this).dialog('close');
+	          }
+	       }
+	   	});
+		startTheShow();
+	})
+</script>
+<title>Letter of Credit</title>
+</head>
+<body>
+	<div class="container-fluid">
+	<div style="background-color: #0d8ac0;" class="col-md-12">
+		<div class="col-md-12">
+			<h4 style="color: #fff">Logged in as {{role}}</h4>
+		</div>
+		<div class="col-md-12">
+			<span style="color: #fff; padding-left:0px" class="col-md-11">{{date}}</span>
+			<span style="color: #fff" class="col-md-1">
+				<a href="/logout"><i class="fa fa-power-off"><span style="margin-left:10px">Logout</span></i></a>
+			</span>
+		</div>
+	</div>
+	<div style="background-color: #66C6ED;" class="col-md-12">
+		<ul class="nav">
+			<li><a href="/lcList"
+				class="accordion-toggle"><span
+					class="sidebar-title">List</span></a></li>
+			<li class="mp20"><a href="/buyer"
+				class="accordion-toggle" style="display:{{createVisible}}"><span
+					class="sidebar-title">Create</span></a></li>
+		</ul>
+	</div>
+	<div id="dialog" title="Ledger Entry">
+    </div>
+	{{{body}}}
+</div>
+<div id="footerPanel">
+	<div id="blockWrap">
+		<div id="blockLegend">BLOCKS</div>
+		<div id="details"></div>
+	</div>
+</div>
+{{{_sections.jquery}}}
+</body>
+</html>

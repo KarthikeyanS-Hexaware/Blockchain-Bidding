@@ -1,0 +1,3 @@
+gulp marbles_local > ~/op 2>&1
+
+[1]+  Stopped                 gulp marbles_local > ~/op 2>&1
